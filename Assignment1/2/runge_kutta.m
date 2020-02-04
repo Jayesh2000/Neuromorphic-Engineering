@@ -1,13 +1,13 @@
 function result1 = runge_kutta(mode, V_init, U_init, I, h)
 U=U_init;
 V=V_init;
-
-result1=zeros(size(mode,1),5000);
-result2=zeros(size(mode,1),5000);
+m=0.5/h;
+result1=zeros(size(mode,1),m);
+result2=zeros(size(mode,1),m);
 
 result1(:,1)=V;
 result2(:,1)=U;
-for j=2:1:5000
+for j=2:1:m
     result1(:,j)=V;
     result2(:,j)=U;
     der_1=getderivative(mode, U, V, I);
@@ -25,6 +25,7 @@ for j=2:1:5000
             v_peak=35e-3;
             if result1(k,j)>v_peak
                 result1(k,j)=-50e-3;
+                %result1(k,j-1)=v_peak;
                 result2(k,j)=result2(k,j)+100e-12;
             end
         end
@@ -32,6 +33,7 @@ for j=2:1:5000
             v_peak=50e-3;
             if result1(k,j)>v_peak
                 result1(k,j)=-56e-3;
+                %result1(k,j-1)=v_peak;
                 result2(k,j)=result2(k,j)+130e-12;
             end
         end
@@ -39,6 +41,7 @@ for j=2:1:5000
             v_peak=25e-3;
             if result1(k,j)>v_peak
                 result1(k,j)=-40e-3;
+                %result1(k,j-1)=v_peak;
                 result2(k,j)=result2(k,j)+150e-12;
             end
         end
