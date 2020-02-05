@@ -8,7 +8,7 @@ for i=1:1:size(mode,1)
         E_t=-40e-3;
         a=0.03e3;
         b=-2e-9;
-       % c=-50;
+        %c=-50;
         %d=100;
         %v_peak=35;
     elseif (mode(i,1)==2) 

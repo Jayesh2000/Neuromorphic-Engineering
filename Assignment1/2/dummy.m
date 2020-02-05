@@ -70,20 +70,7 @@ title("CH mode: Neuron Spiking for I = 600 pA and t = 0.1 ms");
 savefig('600pA.fig');
 
 %For current=400pA and increased t
-result_4=runge_kutta(mode,V_init, U_init, I_1, 0.001);
-figure,subplot(3,1,1)
-plot(result_4(1,:));
-title("RS mode: Neuron Spiking for I = 400 pA and t = 0.5 ms");
-subplot(3,1,2)
-plot(result_4(2,:));
-title("IB mode: Neuron Spiking for I = 400 pA and t = 0.5 ms");
-subplot(3,1,3)
-plot(result_4(3,:));
-title("CH mode: Neuron Spiking for I = 400 pA and t = 0.5 ms");
-savefig('400pA_increased_T.fig');
-
-%For current=500pA and increased t
-result_4=runge_kutta(mode,V_init, U_init, I_1, 0.001);
+result_4=runge_kutta(mode,V_init, U_init, I_1, 0.0005);
 figure,subplot(3,1,1)
 plot(result_4(1,:));
 title("RS mode: Neuron Spiking for I = 400 pA and t = 0.5 ms");
