@@ -23,6 +23,7 @@ end
 end
 
 figure,plot(mem_pot(1,:));
+xlim([0 5000]);
 ylabel('Voltage');
 xlabel('10*Time (ms)');
 title('LIF Model');
@@ -65,21 +66,25 @@ end
 
 figure,subplot(4,1,1)
 plot (time,mem_pot(2,:));
+xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("Neuron Spiking for neuron 2");
 subplot(4,1,2)
 plot (time,mem_pot(4,:))
+xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("Neuron Spiking for neuron 4");
 subplot(4,1,3)
 plot (time,mem_pot(6,:))
+xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("Neuron Spiking for neuron 6");
 subplot(4,1,4)
 plot (time,mem_pot(8,:))
+xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("Neuron Spiking for neuron 8");

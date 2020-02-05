@@ -5,7 +5,7 @@ g_l = 3*10^(-8);
 e_l = -0.07;
 v_th = 0.02;
 N = 1;
-M = 1001;
+M = 5001;
 alpha = 0.1;
 time = 0;
 count = 0;
@@ -29,5 +29,5 @@ for n = 1:N
 end
 
 end
-time = time/count;
+time = M*0.0001/count;
 end
