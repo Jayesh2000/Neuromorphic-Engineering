@@ -47,7 +47,7 @@ plot(result_1(3,:));
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("CH mode: Neuron Spiking for I = 400 pA and t = 0.1 ms");
-%savefig('400pA.fig');
+%savefig('Q2_400pA.fig');
 
 %For current=500pA
 result_2=runge_kutta(mode,V_init, U_init, I_2, 0.0001);
@@ -66,7 +66,7 @@ plot(result_2(3,:));
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("CH mode: Neuron Spiking for I = 500 pA and t = 0.1 ms");
-%savefig('500pA.fig');
+%savefig('Q2_500pA.fig');
 
 %For current=600pA
 result_3=runge_kutta(mode,V_init, U_init, I_3, 0.0001);
@@ -85,7 +85,7 @@ plot(result_3(3,:));
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("CH mode: Neuron Spiking for I = 600 pA and t = 0.1 ms");
-%savefig('600pA.fig');
+%savefig('Q2_600pA.fig');
 
 %For current=400pA and increased t
 result_4=runge_kutta(mode,V_init, U_init, I_1, 0.0005);
@@ -104,7 +104,7 @@ plot(result_4(3,:));
 xlabel('2*Time (ms)');
 ylabel('Voltage');
 title("CH mode: Neuron Spiking for I = 400 pA and t = 0.5 ms");
-%savefig('400pA_increased_T.fig');
+%savefig('Q2_400pA_increased_T.fig');
 
 %For current=500pA and increased t
 result_4=runge_kutta(mode,V_init, U_init, I_2, 0.0005);
@@ -123,7 +123,7 @@ plot(result_4(3,:));
 xlabel('2*Time (ms)');
 ylabel('Voltage');
 title("CH mode: Neuron Spiking for I = 500 pA and t = 0.5 ms");
-%savefig('500pA_increased_T.fig');
+%savefig('Q2_500pA_increased_T.fig');
 
 %For current=600pA and increased t
 result_4=runge_kutta(mode,V_init, U_init, I_3, 0.0005);
@@ -142,4 +142,4 @@ plot(result_4(3,:));
 xlabel('2*Time (ms)');
 ylabel('Voltage');
 title("CH mode: Neuron Spiking for I = 600 pA and t = 0.5 ms");
-%savefig('600pA_increased_T.fig');
+%savefig('Q2_600pA_increased_T.fig');

@@ -61,18 +61,21 @@ end
 
 figure,subplot(3,1,1)
 plot (time,v_pot(1,:));
+xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("RS mode");
 subplot(3,1,2)
 plot (time,v_pot(2,:))
+xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("IB Mode");
 subplot(3,1,3)
 plot (time,v_pot(3,:))
+xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("CH Mode");
-%savefig(sprintf('plot_%d.fig', name));
+%savefig(sprintf('Q3_plot_for_current_%d.fig', name));
 end

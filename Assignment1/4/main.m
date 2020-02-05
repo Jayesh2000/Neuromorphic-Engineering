@@ -1,7 +1,9 @@
+close all;
+
 v = -60; %mV
-mi = 0;
-hi = 0;
-ni = 0;
+mi = 0.05197;
+hi = 0.6015;
+ni = 0.3153;
 I0 = 15; %uA/cm2
 dt = 0.01; %ms             
 T = 30;
@@ -15,59 +17,67 @@ I = I0*I;
   
 [V,iNa,iK,iL,pC,pNa,pK,pL,t] = hh_neuron(I, tspan, dt, v, mi, hi, ni);
 
-energyC = sum(pC)*0.01;
-energyNa = sum(pNa)*0.01;
-energyK = sum(pK)*0.01;
-energyL = sum(pL)*0.01;
-fprintf('energyC = %f nJ/um2 \n', energyC);
-fprintf('energyNa = %f nJ/um2 \n', energyNa);
-fprintf('energyK = %f nJ/um2 \n', energyK);
-fprintf('energyL = %f nJ/um2 \n', energyL);
+t1 = int32(64.29/dt);
+t2 = int32(77.41/dt);
+energyC = sum(pC(t1:t2)*dt)*0.01;
+energyNa = sum(pNa(t1:t2)*dt)*0.01;
+energyK = sum(pK(t1:t2)*dt)*0.01;
+energyL = sum(pL(t1:t2)*dt)*0.01;
+fprintf('energyC = %f mJ/m2 \n', energyC);
+fprintf('energyNa = %f mJ/m2 \n', energyNa);
+fprintf('energyK = %f mJ/m2 \n', energyK);
+fprintf('energyL = %f mJ/m2 \n', energyL);
 
 figure
+subplot(2,2,1);
 plot(t,V);
 xlabel('Time (ms)');
 ylabel('Membrane Potential (mV)');
-title('V vs. t');
+title('V vs. t','Interpreter','latex');
 
-figure
+subplot(2,2,2);
 plot(t,iNa);
 xlabel('Time (ms)');
 ylabel('$Na^{+}$ current','Interpreter','latex');
 title('$i_{Na}$ vs. t','Interpreter','latex');  
 
-figure
+subplot(2,2,3);
 plot(t,iK);
 xlabel('Time (ms)');
 ylabel('$K^{+}$ current','Interpreter','latex');
 title('$i_K$ vs. t','Interpreter','latex');
 
-figure
+subplot(2,2,4);
 plot(t,iL);
 xlabel('Time (ms)');
 ylabel('Leakage current','Interpreter','latex');
 title('$i_L$ vs. t','Interpreter','latex');
+%sgtitle('Q4a. Time evolution');
+%savefig('Q4_Time_evolution');
 
 figure
-plot(t,pC);
+subplot(2,2,1);
+plot(t(t1:t2),pC(t1:t2));
 xlabel('Time (ms)');
 ylabel('pC ($\frac{nW}{cm^2}$)','Interpreter','latex');
-title('instantaneous power dissipated in membrane capacitor','Interpreter','latex');  
+title('Membrane capacitor');  
 
-figure
-plot(t,pNa);
+subplot(2,2,2);
+plot(t(t1:t2),pNa(t1:t2));
 xlabel('Time (ms)');
 ylabel('pNa ($\frac{nW}{cm^2}$)','Interpreter','latex');
-title('instantaneous power dissipated in Na ion channel');
+title('Na ion channel');
 
-figure
-plot(t,pK);
+subplot(2,2,3);
+plot(t(t1:t2),pK(t1:t2));
 xlabel('Time (ms)');
 ylabel('pK ($\frac{nW}{cm^2}$)','Interpreter','latex');
-title('instantaneous power dissipated in K ion channel');
+title('K ion channel');
 
-figure
-plot(t,pL);
+subplot(2,2,4);
+plot(t(t1:t2),pL(t1:t2));
 xlabel('Time (ms)');
 ylabel('pL ($\frac{nW}{cm^2}$)','Interpreter','latex');
-title('instantaneous power dissipated in leakage ion channel');
+title('leakage channel');
+%savefig('Q4_Instantaneous_power_dissipation');
+%sgtitle('Q4b. Instantaneous power dissipation');

@@ -27,7 +27,7 @@ xlim([0 5000]);
 ylabel('Voltage');
 xlabel('10*Time (ms)');
 title('LIF Model');
-savefig('LIF_model.fig');
+%savefig('Q1_LIF_model.fig');
 
 %%
 %Part c
@@ -88,7 +88,7 @@ xlim([0 5000]);
 xlabel('10*Time (ms)');
 ylabel('Voltage');
 title("Neuron Spiking for neuron 8");
-savefig('Variation_of_current_in_LIF.fig');
+%savefig('Q1_Variation_of_current_in_LIF.fig');
 
 %%
 %Part d
@@ -103,4 +103,4 @@ figure,plot(curr, avg_time);
 ylabel('Average time');
 xlabel('Current');
 title('Average time between spikes as a function of Current obtained in part c');
-savefig('Time_vs_spike_in_LIF_model.fig');
+%savefig('Q1_Time_vs_spike_in_LIF_model.fig');

@@ -53,7 +53,7 @@ aH = 0.07*exp(-0.05*(V+65));
 end
 
 function bH = betaH(V)
-bH = 1/(1 + exp(0.1*(V+35)));
+bH = 1/(1 + exp(-0.1*(V+35)));
 end
 
 function aN = alphaN(V)
