@@ -55,11 +55,6 @@ for t =2:M+1
 		u_pot(i,t) = u_pot(i,t) +b;
 	end
 end
-time = linspace(1,M+1,M+1);
-plot(time, v_pot(1,:));
-xlabel("Time*10");
-ylabel("Spike for Poisson Stimulus");
-title("Neuron Response for Poisson Input Stimulus");
 end
 output = v_pot;
 end

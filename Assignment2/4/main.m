@@ -69,7 +69,16 @@ end
 if(peak_val<-0.035)
     break;
 end
-
 end
+figure,plot(sum_current);
+xlabel("Time*10");
+ylabel("Current");
+title("Total Current for No Peak");
+figure,plot(v_plot(1,:));
+%savefig("I_no_peak");
+xlabel("Time*10");
+ylabel("Spike for Poisson Stimulus");
+title("Neuron Response for No Peak");
+%savefig("Spiking_no_peak");
 fprintf('Number of iteration: %i \n', N);
 disp(w);

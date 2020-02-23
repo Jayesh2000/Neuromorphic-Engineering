@@ -70,5 +70,15 @@ if(peak_val>-0.035)
     break;
 end
 end
+figure,plot(sum_current);
+xlabel("Time*10");
+ylabel("Current");
+title("Total Current for Single Peak Formation");
+savfig("I_single_peak");
+figure,plot(v_plot(1,:));
+xlabel("Time*10");
+ylabel("Spike for Poisson Stimulus");
+title("Neuron Response for Single Peak Formation");
+savfig("Spiking_single_peak");
 fprintf('Number of iteration: %i \n', N);
 disp(w);

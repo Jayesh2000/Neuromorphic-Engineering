@@ -11,6 +11,7 @@ dt = 1/10000; % s
 nBins = 5000; % 10 ms spike train
 spiketrain = rand(100, nBins) < fr*dt;
 
+
 sum_current = zeros(1,5000);
 
 for j = 1:100
