@@ -17,11 +17,13 @@ end
 figure,plot(spiketrain);
 xlabel("Time*10");
 ylabel("Stimulus");
-title("Poisson Stimulus");
+title("Time at which stimulus arrives");
+%savefig("Stimulus");
 i = current(time, i_0, w_e, tao, tao_s);
 t = linspace(1,5000,5000);
 figure,plot(t, i);
 xlabel("Time*10");
 ylabel("Current ");
 title("Current for Poisson Stimulus");
+%savefig("Current");
 aef(1,1,i);

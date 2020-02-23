@@ -59,5 +59,6 @@ figure,plot(time, v_pot(1,:));
 xlabel("Time*10");
 ylabel("Spike for Poisson Stimulus");
 title("Neuron Response for Poisson Input Stimulus");
+%savefig("Response");
 end
 end
