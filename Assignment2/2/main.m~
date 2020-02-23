@@ -36,24 +36,24 @@ figure,plot(t, sum_current1);
 xlabel("Time*10");
 ylabel("Spike for Poisson Stimulus");
 title("Total Current due to various stimulus (w1)");
-%savefig("Current_due_to_various_stimulus_w1");
+savefig("Current_due_to_various_stimulus_w1");
 v_output = aef(1,1,sum_current1);
 figure,plot(v_output(1,:));
 xlabel("Time*10");
 ylabel("Spike for Poisson Stimulus");
 title("Neuron Response for Poisson Stimulus (Strength Gaussian Distributed)");
-%savefig("Neron_response_for_total_current_w1");
+savefig("Neron_response_for_total_current_w1");
 
 figure,plot(t, sum_current2);
 xlabel("Time*10");
 ylabel("Spike for Poisson Stimulus");
 title("Total Current due to various stimulus (w2)");
-%savefig("Current_due_to_various_stimulus_w2");
-v_output2 = aef(1,1,sum_current2);
-figure,plot(v_output2(1,:));
+savefig("Current_due_to_various_stimulus_w2");
+v_output = aef(1,1,sum_current1);
+figure,plot(v_output(1,:));
 xlabel("Time*10");
 ylabel("Spike for Poisson Stimulus");
-title("Neuron Response for Poisson Stimulus (Strength Gaussian Distributed) (w2)");
-%savefig("Neron_response_for_total_current_w2");
+title("Neuron Response for Poisson Stimulus (Strength Gaussian Distributed)");
+savefig("Neron_response_for_total_current_w2");
 
 

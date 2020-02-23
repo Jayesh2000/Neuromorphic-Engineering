@@ -1,4 +1,4 @@
-function aef(neuron_param,n,current)
+function y = aef(neuron_param,n,current)
 
 M = 5000;
 h = 0.0001;
@@ -55,10 +55,6 @@ for t =2:M+1
 		u_pot(i,t) = u_pot(i,t) +b;
 	end
 end
-time = linspace(1,M+1,M+1);
-figure,plot(time, v_pot(1,:));
-xlabel("Time*10");
-ylabel("Spike for Poisson Stimulus");
-title("Neuron Response for Poisson Stimulus (Strength Gaussian Distributed)");
 end
+y= v_pot;
 end
