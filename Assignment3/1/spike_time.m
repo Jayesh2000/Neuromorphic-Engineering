@@ -20,18 +20,18 @@ k1 = h*mem_der(mem_pot(:,t-1), current(:,t-1));
 k2 = h*mem_der(mem_pot(:,t-1)+k1, current(:,t));
 mem_pot(:,t) = mem_pot(:,t-1) +(k1 +k2)/2;
 for n = 1:N
-	if (mem_pot(n,t)> v_th)
-        spike(n,t) = 1;
-        mem_pot(n,t) = e_l;
-        flag = 1;
-        count = 2;
-    end
     if(flag == 1)
         mem_pot(n,t) = e_l;
         count = count-1;
     end
-    if(count<0)
+    if(count==0)
         flag = 0;
+    end
+    if (mem_pot(n,t)> v_th)
+        spike(n,t) = 1;
+        mem_pot(n,t) = v_th;
+        flag = 1;
+        count = 2;
     end
 end
 y(1,:) = spike;

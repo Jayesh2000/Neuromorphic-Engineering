@@ -1,3 +1,4 @@
+clear all;
 %  Question 1 a-part
 Fanout = {[2 3 4] [] [] [] [2 3 4]};
 Weight = {[3000 3000 3000] [] [] [] [3000 3000 3000]};
@@ -21,10 +22,10 @@ end
 for i=9:1:1008
     I_app(4,i) = 50e-9;
 end
-display(I_app(2,:));
-dummy_1 = spike_time(I_app(2,:));
-dummy_2 = spike_time(I_app(3,:));
-dummy_3 = spike_time(I_app(4,:));
+%display(I_app(2,:));
+pre_1 = spike_time(I_app(2,:));
+pre_2 = spike_time(I_app(3,:));
+pre_3 = spike_time(I_app(4,:));
 
 for i=1:5
     spike_time{i} = [];
@@ -32,40 +33,63 @@ for i=1:5
     strength{i} = [];
     pre_neuron{i} = [];
 end
-int j1=1;int j2=1;int j3=1;
+
+
+display(pre_1(2,:));
+j1=1;j2=1;j3=1;
 for i=1:1:M+1
-    if(dummy_1(1,i)==1)
-        spike_time(2,j1)=i;
-        arrival_time(1,j1+j2+j3-2) = i+1;
-        strength(1,j1+j2+j3-2)=3000;
-        pre_neuron(1,j1+j2+j3-2) = 2;
-        arrival_time(5,j1+j2+j3-2) = i+8;
-        strength(5,j1+j2+j3-2)=3000;
-        pre_neuron(5,j1+j2+j3-2) = 2;
+    if(pre_1(1,i)==1)
+        spike_time{1,2}(1,j1)=i;
+        arrival_time{1,1}(1,j1+j2+j3-2) = i+1;
+        strength{1,1}(1,j1+j2+j3-2)=3000;
+        pre_neuron{1,1}(1,j1+j2+j3-2) = 2;
+        arrival_time{1,5}(1,j1+j2+j3-2) = i+8;
+        strength{1,5}(1,j1+j2+j3-2)=3000;
+        pre_neuron{1,5}(1,j1+j2+j3-2) = 2;
         j1=j1+1;
     end
-    if(dummy_2(1,i)==1)
-        spike_time(3,j2)=i;
-        arrival_time(1,j1+j2+j3-2) = i+5;
-        strength(1,j1+j2+j3-2)=3000;
-        pre_neuron(1,j1+j2+j3-2) = 3;
-        arrival_time(5,j1+j2+j3-2) = i+5;
-        strength(5,j1+j2+j3-2)=3000;
-        pre_neuron(5,j1+j2+j3-2) = 3;
+    if(pre_2(1,i)==1)
+        spike_time{1,3}(1,j2)=i;
+        arrival_time{1,1}(1,j1+j2+j3-2) = i+5;
+        strength{1,1}(1,j1+j2+j3-2)=3000;
+        pre_neuron{1,1}(1,j1+j2+j3-2) = 3;
+        arrival_time{1,5}(1,j1+j2+j3-2) = i+5;
+        strength{1,5}(1,j1+j2+j3-2)=3000;
+        pre_neuron{1,5}(1,j1+j2+j3-2) = 3;
         j2=j2+1;
     end
-    if(dummy_3(1,i)==1)
-        spike_time(4,j3)=i;
-        arrival_time(1,j1+j2+j3-2) = i+9;
-        strength(1,j1+j2+j3-2)=3000;
-        pre_neuron(1,j1+j2+j3-2) = 4;
-        arrival_time(5,j1+j2+j3-2) = i+1;
-        strength(5,j1+j2+j3-2)=3000;
-        pre_neuron(5,j1+j2+j3-2) = 4;
+    if(pre_3(1,i)==1)
+        spike_time{1,4}(1,j3)=i;
+        arrival_time{1,1}(1,j1+j2+j3-2) = i+9;
+        strength{1,1}(1,j1+j2+j3-2)=3000;
+        pre_neuron{1,1}(1,j1+j2+j3-2) = 4;
+        arrival_time{1,5}(1,j1+j2+j3-2) = i+1;
+        strength{1,5}(1,j1+j2+j3-2)=3000;
+        pre_neuron{1,5}(1,j1+j2+j3-2) = 4;
         j3=j3+1;
     end
 end
 
+%display(spike_time{1,3}(1,5)); how to use cell type
+a=size(arrival_time{1,1},2);
+
+for t=1:1:5001
+    for q=1:1:size(arrival_time{1,1},2)
+        if t>arrival_time{1,1}(1,q)
+            I_synaptic(1,t) = I_synaptic(1,t) + I_o*3000*(exp(-(t-arrival_time{1,1}(1,q))/tao) - exp(-(t-arrival_time{1,1}(1,q))/tao_s));
+        end
+    end
+    for q=1:1:size(arrival_time{1,5},2)
+        if t>arrival_time{1,5}(1,q)
+            I_synaptic(5,t) = I_synaptic(5,t) + I_o*3000*(exp(-(t-arrival_time{1,5}(1,q))/tao) - exp(-(t-arrival_time{1,5}(1,q))/tao_s));
+        end
+    end
+end
+
+post_1 = spike_time(I_synaptic(1,:));
+post_2 = spike_time(I_synaptic(5,:));
+
+figure,plot(post_1(2,:));
 
 
 
