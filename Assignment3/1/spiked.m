@@ -1,4 +1,4 @@
-function y = spike_time(i)
+function y = spiked(i)
 
 c = 3*10^(-10);
 g_l = 3*10^(-8);
@@ -7,12 +7,12 @@ v_th = 0.02;
 N = 1;
 M = 5000;
 y=zeros(2,M+1);
-mem_pot = zeros(N,M+1);
+mem_pot = -0.07*ones(N,M+1);
 %current = ones(N,M+1)*3e-9;
 current = i;
 spike = zeros(N,M+1);
 flag = 0;
-count = 2;
+count = 20;
 h=0.0001;
 
 for t = 2:M
@@ -31,9 +31,9 @@ for n = 1:N
         spike(n,t) = 1;
         mem_pot(n,t) = v_th;
         flag = 1;
-        count = 2;
+        count = 20;
     end
 end
-y(1,:) = spike;
-y(2,:) = mem_pot;
+y(1,:) = spike(1,:);
+y(2,:) = mem_pot(1,:);
 end
