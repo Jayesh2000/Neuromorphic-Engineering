@@ -2,8 +2,8 @@
 tic
 %% Defining constants
 
-N = 500; % no. of neurons
-Rp = 2e-3; % refractory period in s
+N = 200; % no. of neurons
+Rp = 3e-3; % refractory period in s
 w = 3e3;
 lambda = 100; % spike_times/s
 I0 = 1e-12; % in A
@@ -12,13 +12,19 @@ T = 1; % total simulation time in s
 VT = 20e-3; % threshold voltage in V
 EL = -70e-3; % resting potential in V
 tm = 15e-3; % time constant of membrane in s
+tl = 20e-3;
 ts = tm/4; % synaptic time constant in s
+A_up = 0.01;
+A_down = -0.02;
 
 %% Creating the network
 
 Fanout = cell(N,1);
 Weights = cell(N,1);
 Delay = cell(N,1);
+Fanin = cell(N,1);
+Fanin_index = cell(N,1)
+Fanin_delay = cell(N,1);
  
  for excitatory_neuron_i = 1:0.8*N
      Fanout{excitatory_neuron_i} = randperm(N, N/10);
@@ -31,10 +37,19 @@ Delay = cell(N,1);
      Weights{inhibitory_neuron_i} = -w*ones(1, N/10);
      Delay{inhibitory_neuron_i} = ones(1, N/10)*1e-3;
  end
- 
+
+ for neuron = 1:0.8*N  
+    for post_neuron = 1:N/10
+        Fanin{Fanout{neuron}(post_neuron)} = [Fanin{Fanout{neuron}(post_neuron)},neuron];
+        Fanin_index{Fanout{neuron}(post_neuron)} = [Fanin_index{Fanout{neuron}(post_neuron)}, post_neuron];
+        Fanin_delay{Fanout{neuron}(post_neuron)} = [Fanin_delay{Fanout{neuron}(post_neuron)},Delay{neuron}(post_neuron)];
+    end
+ end   
+
 %% Giving the stimulus
 
  incoming_spike_times = cell(N,1); % time when each neuron receives spike_times, a N x T matrix 
+ outgoing_spike_times = cell(N,1); % time when a neuron spikes
  incoming_spike_weights = cell(N,1); % weights corresponding to the synapses carrying the above incoming spike_times 
  
  distribution = makedist('Poisson', 'lambda', dt*lambda);
@@ -42,10 +57,10 @@ Delay = cell(N,1);
 
  for input_neuron = 1:25
 
- 	% Input stimulus to first 25 excitatory neurons
+    % Input stimulus to first 25 excitatory neurons
 
      spikeTrain = zeros(1,T);
-	 for time = 1:T/dt
+     for time = 1:T/dt
          sample = random(distribution, 1);
          if(sample<1) 
              spikeTrain(1,time)=0;
@@ -79,7 +94,7 @@ for time = 1:T/dt
      
      for neuron = 1:N
         
-     	% Adding current in time
+        % Adding current in time
 
         I = 0; 
         for incoming_neuron = 1:size(incoming_spike_times{neuron},2)
@@ -99,20 +114,48 @@ for time = 1:T/dt
         
     end  
      
-	for neuron = 1:N
+    for neuron = 1:N
         if(spike_times(neuron, time)==1)
-           for post_neuron = 1:50 
+           for post_neuron = 1:20 
 
-                % Fanout to each of 50 post-synaptic neurons       
+                % Fanout to each of 20 post-synaptic neurons       
+                post_neuron_time = 0;
+                if((size(outgoing_spike_times{Fanout{neuron}(post_neuron)},2) > 0)&&(neuron < 0.8*N))
+                     post_neuron_time = outgoing_spike_times{Fanout{neuron}(post_neuron)}(end);
+                     Weights{neuron}(post_neuron) = Weights{neuron}(post_neuron)*(1+A_down*exp(-1*(time*dt + Delay{neuron}(post_neuron) - post_neuron_time)/tl));
+                end
 
                 incoming_spike_times{Fanout{neuron}(post_neuron)} = [incoming_spike_times{Fanout{neuron}(post_neuron)}, time*dt + Delay{neuron}(post_neuron)];
                 incoming_spike_weights{Fanout{neuron}(post_neuron)} = [incoming_spike_weights{Fanout{neuron}(post_neuron)}, Weights{neuron}(post_neuron)];
+                
+      
+                
+
+
            end
+           outgoing_spike_times{neuron} =[outgoing_spike_times{neuron}, dt*time];     
+           for pre_neuron = 1:size(Fanin{neuron},2)
+                pre_neuron_time = 0;
+                if(size(outgoing_spike_times{Fanin{neuron}(pre_neuron)},2) > 0)
+                    for i = 1:size(outgoing_spike_times{Fanin{neuron}(pre_neuron)},2)
+                        if((outgoing_spike_times{Fanin{neuron}(pre_neuron)}(i) + Fanin_delay{neuron}(pre_neuron)) <= time*dt)
+                            
+                            pre_neuron_time = outgoing_spike_times{Fanin{neuron}(pre_neuron)}(i) + Fanin_delay{neuron}(pre_neuron);
+                        end
+                    end 
+
+                         
+                        Weights{Fanin{neuron}(pre_neuron)}(Fanin_index{neuron}(pre_neuron)) = Weights{Fanin{neuron}(pre_neuron)}(Fanin_index{neuron}(pre_neuron))*(1+A_up*exp(-1*(time*dt - pre_neuron_time)/tl));
+                                        
+               end
+           end 
+
+
         end
     end
-	     
+         
      if(time~=T/dt) 
-     	spike_times = [spike_times, zeros(N,1)]; 
+        spike_times = [spike_times, zeros(N,1)]; 
      end
      V_final(:,time) = V(:,time);
 end

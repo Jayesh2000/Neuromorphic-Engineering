@@ -2,9 +2,9 @@
 tic
 %% Defining constants
 
-N = 500; % no. of neurons
-Rp = 2e-3; % refractory period in s
-w = 3e3;
+N = 200; % no. of neurons
+Rp = 3e-3; % refractory period in s
+w = 2e3;
 lambda = 100; % spike_times/s
 I0 = 1e-12; % in A
 dt = 1e-3; % time step in s
@@ -101,9 +101,9 @@ for time = 1:T/dt
      
 	for neuron = 1:N
         if(spike_times(neuron, time)==1)
-           for post_neuron = 1:50 
+           for post_neuron = 1:20 
 
-                % Fanout to each of 50 post-synaptic neurons       
+                % Fanout to each of 20 post-synaptic neurons       
 
                 incoming_spike_times{Fanout{neuron}(post_neuron)} = [incoming_spike_times{Fanout{neuron}(post_neuron)}, time*dt + Delay{neuron}(post_neuron)];
                 incoming_spike_weights{Fanout{neuron}(post_neuron)} = [incoming_spike_weights{Fanout{neuron}(post_neuron)}, Weights{neuron}(post_neuron)];
