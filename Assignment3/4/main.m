@@ -1,4 +1,4 @@
-% clear all;
+clear all;
 tic
 %% Defining constants
 
@@ -23,7 +23,7 @@ Fanout = cell(N,1);
 Weights = cell(N,1);
 Delay = cell(N,1);
 Fanin = cell(N,1);
-Fanin_index = cell(N,1)
+Fanin_index = cell(N,1);
 Fanin_delay = cell(N,1);
  
  for excitatory_neuron_i = 1:0.8*N

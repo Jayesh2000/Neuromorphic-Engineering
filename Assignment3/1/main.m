@@ -71,12 +71,12 @@ end
 for t=1:1:5001
     for q=1:1:size(arrival_time{1,1},2)
         if t>arrival_time{1,1}(1,q)
-            I_synaptic(1,t) = I_synaptic(1,t) + I_o*3000*(exp(-0.001*(t-arrival_time{1,1}(1,q))/tao) - exp(-0.001*(t-arrival_time{1,1}(1,q))/tao_s));
+            I_synaptic(1,t) = I_synaptic(1,t) + I_o*3000*(exp(-0.0001*(t-arrival_time{1,1}(1,q))/tao) - exp(-0.0001*(t-arrival_time{1,1}(1,q))/tao_s));
         end
     end
     for q=1:1:size(arrival_time{1,5},2)
         if t>arrival_time{1,5}(1,q)
-            I_synaptic(5,t) = I_synaptic(5,t) + I_o*3000*(exp(-0.001*(t-arrival_time{1,5}(1,q))/tao) - exp(-0.001*(t-arrival_time{1,5}(1,q))/tao_s));
+            I_synaptic(5,t) = I_synaptic(5,t) + I_o*3000*(exp(-0.0001*(t-arrival_time{1,5}(1,q))/tao) - exp(-0.0001*(t-arrival_time{1,5}(1,q))/tao_s));
         end
     end
 end
@@ -181,12 +181,12 @@ end
 for t=1:1:5001
     for q=1:1:size(arrival_time2{1,1},2)
         if t>arrival_time2{1,1}(1,q)
-            I2_synaptic(1,t) = I2_synaptic(1,t) + I_o*3000*(exp(-0.001*(t-arrival_time2{1,1}(1,q))/tao) - exp(-0.001*(t-arrival_time2{1,1}(1,q))/tao_s));
+            I2_synaptic(1,t) = I2_synaptic(1,t) + I_o*3000*(exp(-0.0001*(t-arrival_time2{1,1}(1,q))/tao) - exp(-0.0001*(t-arrival_time2{1,1}(1,q))/tao_s));
         end
     end
     for q=1:1:size(arrival_time2{1,5},2)
         if t>arrival_time2{1,5}(1,q)
-            I2_synaptic(5,t) = I2_synaptic(5,t) + I_o*3000*(exp(-0.001*(t-arrival_time2{1,5}(1,q))/tao) - exp(-0.001*(t-arrival_time2{1,5}(1,q))/tao_s));
+            I2_synaptic(5,t) = I2_synaptic(5,t) + I_o*3000*(exp(-0.0001*(t-arrival_time2{1,5}(1,q))/tao) - exp(-0.0001*(t-arrival_time2{1,5}(1,q))/tao_s));
         end
     end
 end
