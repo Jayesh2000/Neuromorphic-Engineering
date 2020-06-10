@@ -183,29 +183,25 @@ x = cell(N,1);
  
  
 %% Plotting Re(t) and Ri(t)
-
- Re = zeros(1,T/dt-10);
- Ri = zeros(1,T/dt-10);
- 
+%% Plotting W(t)
+%% Re = zeros(1,T/dt-10);
+%% Ri = zeros(1,T/dt-10);
+ Weight_avg = zeros(1,T/dt-10)
  for i = 1:T/dt-10
     for j = 1:(0.8*N)
-        for k = 1:11
-            if(spike_times(j,i+k-1)==1) Re(1,i) = Re(1,i) + 1; end
-        end
+        Weight_avg(i) = Weight_avg(i) + sum(Weights{j});
     end
-    
-    for j = ((0.8*N)+1):N
-        for k = 1:11
-            if(spike_times(j,i+k-1)==1) Ri(1,i) = Ri(1,i) + 1; end
-        end
-    end
+    Weight_avg(i) = Weight_avg(i)/(0.8*N*20);
+       
  end
+
+
  
  figure(2);
- plot(1:T/dt-10,Re,1:T/dt-10,Ri);
- legend({'Re(t)','Ri(t)'});
+ plot(1:T/dt-10,Weight_avg);
+ legend({'Weight_avg'});
  xlabel('Time in ms'); 
- ylabel('Re(t) and Ri(t)'); 
+ ylabel('Weight_avg'); 
  hold on;
  
  toc
