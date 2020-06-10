@@ -87,7 +87,8 @@ Fanin_delay = cell(N,1);
 
 Iapp = zeros(N, T/dt); % Applied current array
 spike_times = zeros(N,1);  % time when the neuron spike_times
-
+Weight_avg = zeros(1,T/dt)
+ 
 for time = 1:T/dt
     
     % Iterating over time to calculate the incoming post-synaptic currents due to spike_times:
@@ -158,6 +159,12 @@ for time = 1:T/dt
         spike_times = [spike_times, zeros(N,1)]; 
      end
      V_final(:,time) = V(:,time);
+
+     for j = 1:(0.8*N)
+        Weight_avg(time) = Weight_avg(time) + sum(Weights{j});
+    end
+    Weight_avg(time) = Weight_avg(time)/(0.8*N*20);
+      
 end
 
 
@@ -186,19 +193,12 @@ x = cell(N,1);
 %% Plotting W(t)
 %% Re = zeros(1,T/dt-10);
 %% Ri = zeros(1,T/dt-10);
- Weight_avg = zeros(1,T/dt-10)
- for i = 1:T/dt-10
-    for j = 1:(0.8*N)
-        Weight_avg(i) = Weight_avg(i) + sum(Weights{j});
-    end
-    Weight_avg(i) = Weight_avg(i)/(0.8*N*20);
-       
- end
+ 
 
 
  
  figure(2);
- plot(1:T/dt-10,Weight_avg);
+ plot(1:T/dt,Weight_avg);
  legend({'Weight_avg'});
  xlabel('Time in ms'); 
  ylabel('Weight_avg'); 

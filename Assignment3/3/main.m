@@ -1,10 +1,10 @@
-% clear all;
+clear all;
 tic
 %% Defining constants
 
 N = 200; % no. of neurons
 Rp = 3e-3; % refractory period in s
-w = 2e3;
+w = 3e3;
 lambda = 100; % spike_times/s
 I0 = 1e-12; % in A
 dt = 1e-3; % time step in s
